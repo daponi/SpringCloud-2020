@@ -1,0 +1,18 @@
+###consul服务端口号
+server:
+  port: 8006
+
+spring:
+  application:
+    name: consul-provider-payment
+
+  ####consul注册中心地址
+  cloud:
+    consul:
+      host: localhost
+      port: 8500 # YML的配置port在discovery上面才对
+      discovery:
+        #hostname: 127.0.0.1
+        service-name: ${spring.application.name}
+
+
