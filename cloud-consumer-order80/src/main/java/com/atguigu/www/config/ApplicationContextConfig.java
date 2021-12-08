@@ -9,7 +9,8 @@ import org.springframework.web.client.RestTemplate;
 public class ApplicationContextConfig {
     //applicationContext.xml <bean id="" class="">
     @Bean
-    @LoadBalanced  //使用@LoadBalanced注解赋予RestTemplate负载均衡的能力
+    //Springboot 2020版本 eureka删除了，ribbon可以通过@LoadBalancerClient注解来改变LoadBalancer
+//    @LoadBalanced  //使用@LoadBalanced注解赋予RestTemplate负载均衡的能力
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }

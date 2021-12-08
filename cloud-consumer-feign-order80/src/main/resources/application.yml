@@ -1,0 +1,22 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: false #此处的客户端不注册到eureka
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+
+
+#设置openFeign客户端超时时间(OpenFeign默认支持ribbon),不会有ReadTimeout因为ribbon对象整个注入再由程序解析而不是默认配置
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ConnectTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 5000
+
+# 使用openFeign日志打印功能看接口调用情况
+logging:
+  level:
+    # 需要调用答应的接口，feign日志以什么级别监控哪个接口
+    com.atguigu.www.service.PaymentFeignService: debug
