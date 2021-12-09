@@ -1,0 +1,40 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: false # 消费者不注册在eureka
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+
+spring:
+  devtools:
+    add-properties: false
+
+# 用于服务降级 在注解@FeignClient中添加fallbackFactory属性值
+feign:
+  hystrix:
+    enabled: true  #在Feign中开启Hystrix
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+# 当启用Hystrix时，其超时配置默认为1000毫秒。因此，它可能发生在我们前面配置的客户机超时之前。增加这个超时可以防止它发生。
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+#设置openFeign客户端超时时间(OpenFeign默认支持ribbon)
+# feign自带的ribbon默认1秒超时时间的优先级会高于hystrix设置的超时时间,所以ribbon的超时时间要大于Hystrix
+#ribbon:
+#
+#  ConnectTimeout: 5000 #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+#  ReadTimeout: 5000  #指的是建立连接后从服务器读取到可用资源所用的时间
