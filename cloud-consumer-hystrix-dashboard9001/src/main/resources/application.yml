@@ -1,0 +1,9 @@
+server:
+  port: 9001
+
+
+  # 为了使用/代理。流端点必须配置一个允许连接到的主机列表,可以使用hystrix.dashboard.proxystreamAllowList。可以在主机名中使用ant样式模式来匹配更广泛的主机名。
+  # 官网解释:https://docs.spring.io/spring-cloud-netflix/docs/2.2.9.RELEASE/reference/html/#circuit-breaker-hystrix-dashboard
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "localhost"
