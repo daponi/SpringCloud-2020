@@ -1,0 +1,86 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center #注册进Eureka服务器的微服务名
+  cloud:
+    config:
+      label: master # 读取分支
+      server:
+        git:
+#          uri: https://github.com/daponi/SpringCloud-2020.git #GitHub上面的git仓库名字,用http时可能需要写账号密码
+          uri: git@github.com:daponi/SpringCloud-2020.git # springCloud Confit不支持OPENSSH生成的密钥，可以使用SSH密钥
+          ####搜索目录
+          search-paths:
+            - springcloud-config/src/main/resources/
+
+          force-pull: true
+#          username: 123
+#          password: 123
+
+          ignoreLocalSshSettings: true
+#          hostKeyAlgorithm: ssh-rsa  # 官方文档显示使用这个指定类型，需要必写hostKey，由于不知道hostKey是什么，直接不写
+#          hostKey: pro16-rsa
+          strict-host-key-checking: false # 忽略hostKey检查
+          # 此处是用SSH密钥直接登录，git还是OPENSSH密钥，文章:https://blog.csdn.net/weixin_37194611/article/details/106113317，官网：https://docs.spring.io/spring-cloud-config/docs/2.2.8.RELEASE/reference/html/#_spring_cloud_config_server
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
+
+#服务注册到eureka地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+
