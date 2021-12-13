@@ -1,0 +1,57 @@
+server:
+  port: 8801
+
+spring:
+  application:
+    name: cloud-stream-provider
+
+#  rabbitmq:
+#    host: my01
+#    port: 5672
+#    username: admin
+#    password: admin
+
+  cloud:
+    stream: #参考官网https://docs.spring.io/spring-cloud-stream/docs/3.0.12.RELEASE/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-binders
+
+      binders: # 在此处配置要绑定的rabbitmq的服务信息；
+#        defaultRabbit: # 表示定义Rabbit的名称，用于与binding整合 当存在多个binder时必须指定一个默认的binder
+        myRabbit: # 表示定义Rabbit的名称，用于与binding整合 当存在多个binder时必须指定一个默认的binder
+          type: rabbit # 消息组件类型
+          environment: # 设置rabbitmq的相关的环境配置
+            spring:
+              rabbitmq:
+                host: my01
+                port: 5672
+                username: admin
+                password: admin
+
+      bindings: # 服务的整合处理
+        output: # 这个名字是一个通道的名称,生产者
+          destination: studyExchange # 表示要使用的Exchange名称定义，建立一个Exchange，交换模式默认是topic
+          content-type: application/json # 设置消息类型，本次为json，文本则设置“text/plain”
+#          binder: defaultRabbit # 设置要绑定的消息服务的具体设置，引用下面的所定义的myRabbit,爆红改成{defaultRabbit}，底层源码是Map类型
+          binder: { myRabbit } # 设置要绑定的消息服务的具体设置，引用下面的所定义的myRabbit,爆红改成{defaultRabbit}，底层源码是Map类型
+
+
+
+
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+    instance-id: send-8801.com  # 在信息列表时显示主机名称
+    prefer-ip-address: true     # 访问的路径变为IP地址
+
+# 关闭RabbitMQ的健康检查，不然成功启动后且不写spring.rabbitmq.host\password配置，RabbitMQ会再次访问默认的localhost:5672出错
+management:
+  health:
+    rabbit:
+      enabled: false
+
+
+
+

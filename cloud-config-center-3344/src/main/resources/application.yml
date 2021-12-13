@@ -15,6 +15,7 @@ spring:
           search-paths:
             - springcloud-config/src/main/resources/
 
+
           force-pull: true
 #          username: 123
 #          password: 123
@@ -77,10 +78,20 @@ spring:
             BJrsFO69cMjEHT/TGbfZ/Kz/MCPeI0VG9qiPAwW6FJh0UitzKh+n5tEhk9st
             -----END RSA PRIVATE KEY-----
 
+  #rabbitmq相关配置
+  rabbitmq:
+    host: my01
+    username: admin
+    password: admin
 #服务注册到eureka地址
 eureka:
   client:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka
 
-
+##rabbitmq相关配置,暴露bus刷新配置的端点
+management:
+  endpoints: #暴露bus刷新配置的端点
+    web:
+      exposure:
+        include: 'bus-refresh'
