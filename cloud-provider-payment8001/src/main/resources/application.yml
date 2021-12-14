@@ -1,17 +1,6 @@
 server:
   port: 8001
 
-spring:
-  application:
-    name: cloud-payment-service
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-    driver-class-name: com.mysql.cj.jdbc.Driver            # mysql驱动包
-    url: jdbc:mysql://localhost:3306/springcloud01?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: 1230123
-
-
 # myBatis整合
 mybatis:
   mapperLocations: classpath:mapper/*.xml
@@ -30,6 +19,22 @@ eureka:
     instance-id: payment8001
     prefer-ip-address: true #访问路径可以显示IP地址
     # Eureka客户端向服务端发送心跳的时间间隔，用来证明客户端还活着，单位为秒(默认是30秒)
-    lease-renewal-interval-in-seconds: 1
+    lease-renewal-interval-in-seconds: 5
     # Eureka服务端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时将剔除服务
-    lease-expiration-duration-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5
+spring:
+  # 追踪服务Zipkin的相关设置
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1 #采样率值介于 0 到 1 之间，1 则表示全部采集
+
+  application:
+      name: cloud-payment-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver            # mysql驱动包
+    url: jdbc:mysql://localhost:3306/springcloud01?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 1230123

@@ -16,6 +16,11 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
+        <!--使用通过HTTP探讨服务追踪Zipkin的依赖包含了sleuth+zipkin，看官网也可只要Spring Cloud Sleuth不集成Zipkin改为spring-cloud-starter-sleuth-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <!--Eureka依赖，内含Ribbon依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

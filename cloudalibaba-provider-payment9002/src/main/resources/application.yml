@@ -1,0 +1,18 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: my01:8848 #配置Nacos地址
+
+# Actuator创建了所谓的endpoint来暴露HTTP或者JMX来监控和管理应用,暴露所有断点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

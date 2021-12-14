@@ -19,8 +19,9 @@ import java.util.List;
 public class OrderController {
 //    public static final String PAYMENT_URL="http://localhost:8001";
     // 使用服务地址而不写死, 通过在eureka上注册过的微服务名称调用
-    public static final String PAYMENT_URL="http://CLOUD-PAYMENT-SERVICE";
+    public static final String PAYMENT_URL="http://cloud-payment-service";
 
+    //不用换OpenFeign时，需要开启@LoadBalanced
     @Resource
     private RestTemplate restTemplate;
 
@@ -83,5 +84,14 @@ public class OrderController {
         URI serverUri = serverInstance.getUri();
         return restTemplate.getForObject(serverUri+"/payment/lb", String.class);
     }
+
+    //演示zipkin服务追踪的方法, zipkin+sleuth
+    @GetMapping("/consumer/payment/zipkin")
+    public String paymentZipkin()
+    {
+        String result = restTemplate.getForObject(PAYMENT_URL+"/payment/zipkin", String.class);
+        return result;
+    }
+
 
 }
