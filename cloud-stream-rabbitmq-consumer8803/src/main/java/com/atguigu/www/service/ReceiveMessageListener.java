@@ -1,4 +1,4 @@
-package www.service;
+package com.atguigu.www.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
