@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * Hystrix消费端、生产端都可用，但一般用于消费端
  */
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients//开启openFeign的功能
 @EnableHystrix //含有@EnableCircuitBreaker
 public class OrderHystrixMain80 {
     public static void main(String[] args) {

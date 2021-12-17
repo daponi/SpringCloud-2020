@@ -17,6 +17,18 @@ spring:
         #例如，如果在Sentinel仪表板中添加速率限制规则，则规则数据将被推到HTTP服务器并由HTTP服务器接收，然后HTTP服务器将该规则注册到Sentinel。
         port: 8719
 
+      # 配置Sentinel的规则持久化到Nacos
+      datasource:  # Map类型，下面都是自定义
+        ds1:  # 数据源1
+          nacos:
+            server-addr: my01:8848  # Nacos的地址
+            dataId: cloudalibaba-sentinel-service #微服务名称
+            groupId: DEFAULT_GROUP  # 组名
+            data-type: json         # JSON格式
+            rule-type: flow
+
+
+
 # Actuator创建了所谓的endpoint来暴露HTTP或者JMX来监控和管理应用,暴露所有断点
 management:
   endpoints:
